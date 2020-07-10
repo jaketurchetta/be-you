@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class Donate extends React.Component {
+export default class EventsScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,7 +11,7 @@ export default class Donate extends React.Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text> Donate to LGBTQ+ initiatives here </Text>
+        <Text> Find local LGBTQ+ events here </Text>
       </View>
     );
   }

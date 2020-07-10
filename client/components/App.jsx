@@ -1,26 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Donate from './Donate.jsx';
-import Videos from './Videos.jsx';
-import NewsFeed from './NewsFeed.jsx';
-import Events from './Events.jsx';
-import Resources from './Resources.jsx';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import DonateScreen from './DonateScreen.jsx';
+import VideosScreen from './VideosScreen.jsx';
+import NewsScreen from './NewsScreen.jsx';
+import EventsScreen from './EventsScreen.jsx';
+import ResourcesScreen from './ResourcesScreen.jsx';
 
-const Tab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
-const MyTabs = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Donate" component={Donate} />
-      <Tab.Screen name="Videos" component={Videos} />
-      <Tab.Screen name="NewsFeed" component={NewsFeed} />
-      <Tab.Screen name="Events" component={Events} />
-      <Tab.Screen name="Resources" component={Resources} />
-    </Tab.Navigator>
-  );
-}
 
 export default class App extends React.Component {
 
@@ -31,10 +25,55 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Welcome to Be You!</Text>
-        <MyTabs />
-      </View>
+      <NavigationContainer>
+        <BottomTab.Navigator
+          initialRouteName="NewsFeed"
+          tabBarOptions={{
+            showLabel: false,
+            activeBackgroundColor: '#F4F5F6'
+          }}>
+          <BottomTab.Screen
+            name="Donate"
+            component={DonateScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <FontAwesome5 name="donate" color={'#AA1C0D'} size={size} />
+              ),
+            }}  />
+          <BottomTab.Screen
+            name="Videos"
+            component={VideosScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Fontisto name="youtube-play" color={'#F16B0E'} size={size} />
+              ),
+            }}  />
+          <BottomTab.Screen
+            name="NewsFeed"
+            component={NewsScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <FontAwesome name="newspaper-o" color={'#ECEC0D'} size={size} />
+              ),
+            }}  />
+          <BottomTab.Screen
+            name="Events"
+            component={EventsScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="calendar" color={'#0EA304'} size={size} />
+              ),
+            }}  />
+          <BottomTab.Screen
+            name="Resources"
+            component={ResourcesScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <MaterialCommunityIcons name="heart" color={'#0A25BB'} size={size} />
+              ),
+            }}  />
+        </BottomTab.Navigator>
+      </NavigationContainer>
     );
   }
 

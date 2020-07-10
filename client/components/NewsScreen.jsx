@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class Video extends React.Component {
+export default class NewsScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -11,7 +11,7 @@ export default class Video extends React.Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text> This is the Video Feed </Text>
+        <Text> This is the News Feed </Text>
       </View>
     );
   }
