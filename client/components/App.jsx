@@ -1,7 +1,16 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Header from './Header.jsx';
-import BottomNavBar from './BottomNavBar.jsx';
+import React, { Fragment } from 'react';
+import Header from './navigation/Header.jsx';
+import TabNavigator from './navigation/TabNavigator.jsx';
+import * as eva from '@eva-design/eva';
+import { mapping, light as lightTheme } from '@eva-design/eva'
+import { ApplicationProvider, IconRegistry, Layout, Text } from '@ui-kitten/components';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+
+const ApplicationContent = () => (
+  <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Text>Welcome to UI Kitten</Text>
+  </Layout>
+)
 
 export default class App extends React.Component {
 
@@ -12,17 +21,13 @@ export default class App extends React.Component {
 
   render() {
     return (
-        <BottomNavBar />
+      <Fragment>
+        <IconRegistry icons={EvaIconsPack} />
+        <ApplicationProvider mapping={mapping} theme={lightTheme}>
+          <TabNavigator />
+        </ApplicationProvider>
+      </Fragment>
     );
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
