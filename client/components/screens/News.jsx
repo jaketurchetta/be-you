@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text, Layout } from 'react-native-ui-kitten'
+import { ApplicationProvider, IconRegistry, Layout, Text, Avatar } from 'react-native-ui-kitten';
 import FeedNavigator from '../navigation/TopNavigator.jsx'
 
 export default class News extends React.Component {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Layout, Text, Avatar } from 'react-native-ui-kitten'
 import FeedNavigator from '../navigation/TopNavigator.jsx'
 
 export default class Videos extends React.Component {
@@ -13,9 +13,9 @@ export default class Videos extends React.Component {
     return (
       <React.Fragment>
         <FeedNavigator />
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text> This is the Video Feed </Text>
-        </View>
+        </Layout>
       </React.Fragment>
 
     );

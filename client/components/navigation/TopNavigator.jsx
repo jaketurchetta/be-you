@@ -13,25 +13,25 @@ let customFonts = {
   'Billabong': require('../../../assets/fonts/Billabong.ttf')
 };
 
-const ProfileIcon = (props) => (
-  <Icon {...props} name='profile-outline' />
-)
+// const ProfileIcon = (props) => (
+//   <Icon {...props} name='profile-outline' />
+// )
 
-const EditIcon = (props) => (
-  <Icon {...props} name='edit' />
-);
+// const EditIcon = (props) => (
+//   <Icon {...props} name='edit' />
+// );
 
-const MenuIcon = (props) => (
-  <Icon {...props} name='more-vertical' />
-);
+// const MenuIcon = (props) => (
+//   <Icon {...props} name='more-vertical' />
+// );
 
-const InfoIcon = (props) => (
-  <Icon {...props} name='info' />
-);
+// const InfoIcon = (props) => (
+//   <Icon {...props} name='info' />
+// );
 
-const LogoutIcon = (props) => (
-  <Icon {...props} name='log-out' />
-);
+// const LogoutIcon = (props) => (
+//   <Icon {...props} name='log-out' />
+// );
 
 export default class FeedNavigator extends React.Component {
 
@@ -58,51 +58,45 @@ export default class FeedNavigator extends React.Component {
 
       // const [menuVisible, setMenuVisible] = React.useState(false);
 
-      const toggleMenu = () => {
-        setMenuVisible(!this.state.menuVisible);
-      };
+      // const toggleMenu = () => {
+      //   setMenuVisible(!this.state.menuVisible);
+      // };
 
-      const renderMenuAction = () => (
-        <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
-      );
+      // const renderMenuAction = () => (
+      //   <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
+      // );
 
-      const renderRightActions = () => (
-        <React.Fragment>
-          <TopNavigationAction icon={EditIcon} />
-          <OverflowMenu
-            anchor={renderMenuAction}
-            visible={this.state.menuVisible}
-            onBackdropPress={toggleMenu}>
-            <MenuItem accessoryLeft={InfoIcon} title='About' />
-            <MenuItem accessoryLeft={LogoutIcon} title='Logout' />
-          </OverflowMenu>
-        </React.Fragment>
-      );
+      // const renderRightActions = () => (
+      //   <React.Fragment>
+      //     <TopNavigationAction icon={EditIcon} />
+      //     <OverflowMenu
+      //       anchor={renderMenuAction}
+      //       visible={this.state.menuVisible}
+      //       onBackdropPress={toggleMenu}>
+      //       <MenuItem accessoryLeft={InfoIcon} title='About' />
+      //       <MenuItem accessoryLeft={LogoutIcon} title='Logout' />
+      //     </OverflowMenu>
+      //   </React.Fragment>
+      // );
 
       return (
-        // <React.Fragment>
-        //   {/* <Header
-        //     statusBarProps={{ barStyle: 'light-content' }}
-        //     barStyle="light-content"
-        //     centerComponent={{ text: 'Be You', style: { fontSize: 32, fontFamily: 'Billabong' } }}
-        //     rightComponent={
-        //       <Icon
-        //         name="person-outline"
-        //         width={32}
-        //         height={32} />
-        //     }
-        //     containerStyle={{
-        //       backgroundColor: 'white',
-        //       justifyContent: 'space-between',
-        //     }}
-        //   /> */}
-        // </React.Fragment>
-        <SafeAreaView style={styles.container} level='1'>
-          <TopNavigation
-            alignment='center'
-            title='Be You'
-            accessoryRight={renderRightActions} />
-        </SafeAreaView>
+        <React.Fragment>
+          <Header
+            statusBarProps={{ barStyle: 'light-content' }}
+            barStyle="light-content"
+            centerComponent={{ text: 'Be You', style: { fontSize: 32, fontFamily: 'Billabong' } }}
+            rightComponent={
+              <Icon
+                name="person-outline"
+                width={32}
+                height={32} />
+            }
+            containerStyle={{
+              backgroundColor: 'white',
+              justifyContent: 'space-between',
+            }}
+          />
+        </React.Fragment>
       )
     } else {
       return <AppLoading />
@@ -110,9 +104,3 @@ export default class FeedNavigator extends React.Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    minHeight: 128,
-  },
-});
