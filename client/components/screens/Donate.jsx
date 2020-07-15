@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import FeedNavigator from '../navigation/StackNavigator.jsx'
+import FeedNavigator from '../navigation/TopNavigator.jsx'
 
 export default class Donate extends React.Component {
 

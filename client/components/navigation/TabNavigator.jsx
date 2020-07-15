@@ -7,7 +7,7 @@ import NewsScreen from '../screens/News.jsx';
 import EventsScreen from '../screens/Events.jsx';
 import ResourcesScreen from '../screens/Resources.jsx';
 import { Icon } from 'react-native-ui-kitten';
-import FeedNavigator from './StackNavigator.jsx'
+import FeedNavigator from './TopNavigator.jsx'
 
 const BottomTab = createBottomTabNavigator();
 
