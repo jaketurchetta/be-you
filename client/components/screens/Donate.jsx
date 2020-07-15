@@ -1,5 +1,6 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import FeedNavigator from '../navigation/StackNavigator.jsx'
 
 export default class Donate extends React.Component {
 
@@ -9,10 +10,14 @@ export default class Donate extends React.Component {
   }
 
   render() {
-    return(
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text> Donate to LGBTQ+ initiatives here </Text>
-      </View>
+    return (
+      <React.Fragment>
+        <FeedNavigator />
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Text> Donate to LGBTQ+ initiatives here </Text>
+        </View>
+      </React.Fragment>
+
     );
   }
 
