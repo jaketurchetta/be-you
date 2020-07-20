@@ -13,8 +13,10 @@ let customFonts = {
   'Billabong': require('../../../assets/fonts/Billabong.ttf')
 };
 
-// const ProfileIcon = (props) => (
-//   <Icon {...props} name='profile-outline' />
+// const ProfileIcon = () => (
+//    <Icon name="person-outline"
+//                 width={32}
+//                 height={32} />
 // )
 
 // const EditIcon = (props) => (
@@ -39,8 +41,6 @@ export default class FeedNavigator extends React.Component {
     super(props);
     this.state = {
       fontsLoaded: false,
-      menuVisible: false,
-      setMenuVisible: false
     };
   }
 
@@ -93,7 +93,7 @@ export default class FeedNavigator extends React.Component {
             }
             containerStyle={{
               backgroundColor: 'white',
-              justifyContent: 'space-between',
+              justifyContent: 'space-around',
             }}
           />
         </React.Fragment>
