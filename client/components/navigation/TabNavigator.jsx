@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DonateScreen from '../screens/Donate.jsx';
 import VideosScreen from '../screens/Videos.jsx';
-import NewsScreen from '../screens/News.jsx';
+import { News } from '../screens/News.jsx';
 import EventsScreen from '../screens/Events.jsx';
 import ResourcesScreen from '../screens/Resources.jsx';
 import { Icon } from 'react-native-ui-kitten';
@@ -53,7 +53,7 @@ export default class TabNavigator extends React.Component {
             }} />
           <BottomTab.Screen
             name="NewsFeed"
-            component={NewsScreen}
+            component={News}
             options={{
               tabBarIcon: ({ focused }) => (
                 <Icon

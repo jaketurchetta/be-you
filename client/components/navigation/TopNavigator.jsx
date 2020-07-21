@@ -7,7 +7,7 @@ import { Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationActio
 import { Header } from 'react-native-elements'
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import NewsScreen from '../screens/News.jsx'
+import News from '../screens/News.jsx'
 
 let customFonts = {
   'Billabong': require('../../../assets/fonts/Billabong.ttf')
