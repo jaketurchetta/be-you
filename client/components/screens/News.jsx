@@ -1,10 +1,11 @@
-import React from 'react'
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import React, { useCallback } from 'react'
+import { StyleSheet, View, Image, TouchableOpacity, Linking, Alert } from 'react-native'
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, List } from 'react-native-ui-kitten'
 import axios from 'axios'
 import { GNEWS_API_KEY, UNSPLASH_ACCESS_KEY, UNSPLASH_SECRET_KEY } from '../../../config.js'
 import FeedNavigator from '../navigation/TopNavigator.jsx'
 import Unsplash, { toJson } from 'unsplash-js'
+import { Promise } from 'bluebird'
 
 const unsplash = new Unsplash({
   accessKey: UNSPLASH_ACCESS_KEY
@@ -26,7 +27,7 @@ let data = [
     "title": "‘LGBT-free’ Polish village risks losing access to EU funds",
     "description": "Surrounded by fields of roses and lavender in tranquil eastern Poland, some residents of the village of Konskowola feel the EU might be trying to blackmail them. Like about 100 other municipalities ...",
     "url": "https://www.taipeitimes.com/News/editorials/archives/2020/07/20/2003740218",
-    "image": null,
+    "image": "https://images.unsplash.com/photo-1516646085441-e1719f13aa3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2532&q=80",
     "publishedAt": "2020-07-19 09:14:00 UTC",
     "source": {
       "name": "The Taipei Times",
@@ -37,7 +38,7 @@ let data = [
     "title": "Arab tahini company that donated money to LGBT rights group faces boycott",
     "description": "Al Arz tahini is distributed globally, with its adherents including the popular Israeli chef Yotam Ottolenghi.",
     "url": "https://www.jpost.com/arab-israeli-conflict/arab-tahini-company-that-donated-money-to-lgbt-rights-group-faces-boycott-635471",
-    "image": null,
+    "image": "https://images.unsplash.com/photo-1564694457547-6ea79902e0be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2500&q=80",
     "publishedAt": "2020-07-18 09:48:00 UTC",
     "source": {
       "name": "The Jerusalem Post Blogs",
@@ -48,7 +49,7 @@ let data = [
     "title": "DOJ Must Lead Effort To Upend Anti-LGBT Rules, Groups Say",
     "description": "Civil rights groups led by the American Civil Liberties Union are pressing Attorney General William Barr to start enforcing the U.S. Supreme Court's ruling that federal anti-discrimination law covers ...",
     "url": "https://www.law360.com/articles/1293186/doj-must-lead-effort-to-upend-anti-lgbt-rules-groups-say",
-    "image": null,
+    "image": "https://images.unsplash.com/photo-1562592619-908ca07deace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80",
     "publishedAt": "2020-07-17 21:48:00 UTC",
     "source": {
       "name": "Law360",
@@ -140,78 +141,97 @@ class _News extends React.Component {
   }
 
   getArticles() {
-    axios.get(`https://gnews.io/api/v3/search?q=lgbt|gay|lesbian|trans|queer&token=${GNEWS_API_KEY}`)
+    let fetch = axios.get(`https://gnews.io/api/v3/search?q=lgbt|gay|lesbian|bisexual|trans|queer&token=${GNEWS_API_KEY}`)
       .then(response => {
-        console.log(response)
-        if (response.data.errors) {
-          this.setState({
-            articles: data,
-          }, () => {
-            console.log(this.state.articles)
-          })
-        } else {
-          let articles = response.data.articles
-          this.setState({
-            articles: articles,
-          }, () => {
-            console.log(this.state.articles)
-          })
-        }
+        let articles = response.data.articles
+        articles.forEach(article => {
+          if (!article.image) {
+            unsplash.photos.getRandomPhoto({ query: 'lgbt', featured: true, orientation: 'squarish' })
+              .then(toJson)
+              .then(json => {
+                article.image = json.urls.full
+              })
+          }
+        })
+        return articles
+      })
+    Promise.all([fetch])
+      .then((values) => {
+        this.setState({
+          articles: values[0],
+        }, () => {
+          console.log(this.state.articles)
+        })
       })
       .catch(err => console.log(err))
   }
 
-getRandomPhoto() {
-  unsplash.photos.getRandomPhoto({ query: 'lgbt' })
-    .then(toJson)
-    .then(json => {
-      return json.links.html
-    })
-}
+  getRandomPhoto() {
+    unsplash.photos.getRandomPhoto({ query: 'lgbt' })
+      .then(toJson)
+      .then(json => {
+        return json.links.html
+      })
+  }
 
-renderItem = ({ item }) =>
-  <View style={this.props.themedStyle.card}>
-    {item.image ? (<Image
-      source={{ uri: item.image }}
-      style={this.props.themedStyle.cardImage} />)
-      : (<Image
-        source={{ uri: this.getRandomPhoto() }}
-        style={this.props.themedStyle.cardImage} />)}
+  handleClick(url) {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        Alert.alert("Don't know how to open URI: " + url)
+      }
+    }, [url])
+  }
 
-    <View style={this.props.themedStyle.cardHeader}>
-      <Text category='s1' style={this.props.themedStyle.cardTitle}>{item.title}</Text>
-    </View>
-    <View style={this.props.themedStyle.sourceTitle}>
-      <Text category='p1'>{item.source.name}</Text>
-    </View>
-    <View style={this.props.themedStyle.cardContent}>
-      <Text category='c1'>{item.description}</Text>
-    </View>
-  </View>
+  renderItem = ({ item }) => {
+    return (
+      <TouchableOpacity style={this.props.themedStyle.card}
+        onPress={() => this.handleClick(item.url)}>
+        {item.image ? (<Image
+          source={{ uri: item.image }}
+          style={this.props.themedStyle.cardImage} />)
+          : (<Image
+            source={{ uri: this.getRandomPhoto() }}
+            style={this.props.themedStyle.cardImage} />)}
+        <View style={this.props.themedStyle.cardHeader}>
+          <Text category='s1' style={this.props.themedStyle.cardTitle}>{item.title}</Text>
+        </View>
+        <View style={this.props.themedStyle.cardSource}>
+          <Text category='c2'>{item.source.name}</Text>
+        </View>
+        <View style={this.props.themedStyle.cardContent}>
+          <Text category='c1'>{item.description}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
 
-render() {
-  return (
-    <React.Fragment>
-      <FeedNavigator />
-      {this.state.articles.length ? (<List style={this.props.themedStyle.container}
-        contentContainerStyle={this.props.themedStyle.contentContainer}
-        data={this.state.articles}
-        renderItem={item => this.renderItem(item)} />)
-        : (<Layout style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text> Newsfeed </Text>
-        </Layout>)}
-    </React.Fragment>
-  )
-}
+  render() {
+    return (
+      <React.Fragment>
+        <FeedNavigator />
+        {this.state.articles.length ? (<List style={this.props.themedStyle.container}
+          contentContainerStyle={this.props.themedStyle.contentContainer}
+          data={this.state.articles}
+          renderItem={item => this.renderItem(item)} />)
+          : (<Layout style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text> Newsfeed </Text>
+          </Layout>)}
+      </React.Fragment>
+    )
+  }
 
 }
 
 export const News = withStyles(_News, theme => ({
   container: {
     flex: 1,
+
   },
   contentContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center'
   },
   card: {
     backgroundColor: theme['color-basic-100'],
@@ -251,14 +271,18 @@ export const News = withStyles(_News, theme => ({
     paddingRight: 15,
     paddingTop: 15
   },
-  sourceTitle: {
+  cardSource: {
     color: theme['color-basic-1000'],
+    fontSize: '8px',
     fontStyle: 'italic',
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 5
   },
   cardContent: {
-    padding: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
+    paddingTop: 10,
   }
 }))

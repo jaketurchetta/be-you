@@ -17,4 +17,4 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // ROUTES
 
 // LISTEN
-app.listen(PORT, console.log(`Build-A-Band listening on port ${PORT}`))
+app.listen(PORT, console.log(`Be You listening on port ${PORT}`))

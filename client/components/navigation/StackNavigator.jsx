@@ -5,43 +5,6 @@ import { Icon } from 'react-native-ui-kitten'
 import { Header } from 'react-native-elements'
 import News from '../screens/News.jsx'
 
-// const TopTab = createMaterialTopTabNavigator();
-
-// const StackScreen = () => {
-//   return (
-//     <NavigationContainer>
-//       <TopTab.Navigator>
-//         <TopTab.Screen
-//           name="Home"
-//           options={{
-//             title: 'Be You',
-//             headerStyle: {
-//               backgroundColor: '#f4511e',
-//             },
-//             headerTintColor: '#fff',
-//             headerTitleStyle: {
-//               fontWeight: 'bold',
-//             },
-//           }}
-//         />
-//         <TopTab.Screen
-//           name="Profile"
-//           options={{
-//             title: 'Be You',
-//             headerStyle: {
-//               backgroundColor: '#f4511e',
-//             },
-//             headerTintColor: '#fff',
-//             headerTitleStyle: {
-//               fontWeight: 'bold',
-//             },
-//           }}
-//         />
-//       </TopTab.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
 export default class FeedNavigator extends React.Component {
 
   constructor(props) {
