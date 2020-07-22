@@ -211,7 +211,7 @@ class _News extends React.Component {
     return (
       <React.Fragment>
         <FeedNavigator />
-        {this.state.articles.length ? (<List style={{alignItems: 'center', justifyContent: 'center'}}
+        {this.state.articles.length ? (<List style={this.props.themedStyle.container}
           contentContainerStyle={this.props.themedStyle.contentContainer}
           data={this.state.articles}
           renderItem={item => this.renderItem(item)} />)
