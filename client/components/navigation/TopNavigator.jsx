@@ -38,19 +38,19 @@ const customFonts = {
 export default class FeedNavigator extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       fontsLoaded: false,
-    };
+    }
   }
 
   async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
+    await Font.loadAsync(customFonts)
+    this.setState({ fontsLoaded: true })
   }
 
   componentDidMount() {
-    this._loadFontsAsync();
+    this._loadFontsAsync()
   }
 
   render() {
@@ -87,7 +87,7 @@ export default class FeedNavigator extends React.Component {
             centerComponent={{ text: 'Be You', style: { fontSize: 32, fontFamily: 'Billabong' } }}
             rightComponent={
               <Icon
-                name="person-outline"
+                name='person-outline'
                 width={32}
                 height={32} />
             }

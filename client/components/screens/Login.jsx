@@ -21,12 +21,12 @@ export default class Login extends React.Component {
   }
 
   async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
+    await Font.loadAsync(customFonts)
+    this.setState({ fontsLoaded: true })
   }
 
   componentDidMount() {
-    this._loadFontsAsync();
+    this._loadFontsAsync()
   }
 
   render() {
