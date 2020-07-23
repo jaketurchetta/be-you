@@ -6,12 +6,13 @@ import { GNEWS_API_KEY, UNSPLASH_ACCESS_KEY, UNSPLASH_SECRET_KEY } from '../../.
 import FeedNavigator from '../navigation/TopNavigator.jsx'
 import Unsplash, { toJson } from 'unsplash-js'
 import { Promise } from 'bluebird'
+import Icon from 'react-native-vector-icons/Entypo'
 
 const unsplash = new Unsplash({
   accessKey: UNSPLASH_ACCESS_KEY
 });
 
-let data = [
+const data = [
   {
     "title": "Arab Israeli tahini company faces boycott after LGBT donation",
     "description": "The donation from the owner of the Al Arz tahini company was directed to help set up a hotline for Arabic-speaking LGBT Israelis.",
@@ -159,8 +160,6 @@ class _News extends React.Component {
       .then((values) => {
         this.setState({
           articles: values[0],
-        }, () => {
-          console.log(this.state.articles)
         })
       })
       .catch(err => console.log(err))
@@ -198,7 +197,7 @@ class _News extends React.Component {
           <Text category='s1' style={this.props.themedStyle.cardTitle}>{item.title}</Text>
         </View>
         <View style={this.props.themedStyle.cardSource}>
-          <Text category='c2'>{item.source.name}</Text>
+          <Text category='c2'>{item.source.name}</Text><Icon name={'dot-single'}/><Text category='c2'>{item.publishedAt}</Text>
         </View>
         <View style={this.props.themedStyle.cardContent}>
           <Text category='c1'>{item.description}</Text>
@@ -277,7 +276,9 @@ export const News = withStyles(_News, theme => ({
     fontStyle: 'italic',
     paddingLeft: 15,
     paddingRight: 15,
-    paddingTop: 5
+    paddingTop: 5,
+    flex: 1,
+    flexDirection: 'row'
   },
   cardContent: {
     paddingLeft: 15,

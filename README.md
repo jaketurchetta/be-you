@@ -2,7 +2,7 @@
 
 This project is an LGBTQIA+ social hub that curates queer content for users. Specifically, the application sources LGBTQIA+ news, videos, events, charities for donations, and resources.
 
-> The app is built in React Native and is currently under construction. The user experience is primarily divided into 5 main sections.
+> The app is built in React Native and is currently under construction. The user experience is primarily divided into 5 main sections outlined below.
 
 ![alt text](/assets/BeYouLayout.png)
 

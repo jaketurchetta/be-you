@@ -1,15 +1,15 @@
 import React from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context'
 import { Icon, Layout, MenuItem, OverflowMenu, TopNavigation, TopNavigationAction } from 'react-native-ui-kitten'
 import { Header } from 'react-native-elements'
-import { AppLoading } from 'expo';
-import * as Font from 'expo-font';
+import { AppLoading } from 'expo'
+import * as Font from 'expo-font'
 import News from '../screens/News.jsx'
 
-let customFonts = {
+const customFonts = {
   'Billabong': require('../../../assets/fonts/Billabong.ttf')
 };
 
