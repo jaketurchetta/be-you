@@ -9,14 +9,15 @@ const customFonts = {
   'Billabong': require('../../../assets/fonts/Billabong.ttf')
 };
 
-export default class Login extends React.Component {
+export default class Signup extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      fontsLoaded: false
+      fontsLoaded: false,
+      signup: false
     }
   }
 
@@ -30,7 +31,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    if (this.state.fontsLoaded) {
+    if (this.state.fontsLoaded && !this.state.signup) {
       return (
         <View style={styles.container}>
           <Text style={styles.logo}>Be You</Text>
@@ -52,14 +53,10 @@ export default class Login extends React.Component {
           <TouchableOpacity>
             <Text style={styles.forgot}>Forgot Password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginBtn} onPress={() => this.props.handleLogin()}>
-            <Text style={styles.loginText}>LOGIN</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.signupText}>Signup</Text>
-          </TouchableOpacity>
         </View>
       )
+    } else if (this.state.signup) {
+      <Signup />
     } else {
       return <AppLoading />
     }
@@ -104,7 +101,37 @@ const styles = StyleSheet.create({
     height:50,
     alignItems:'center',
     justifyContent:'center',
-    marginTop:40,
+    marginTop:5,
+    marginBottom:10
+  },
+  facebook: {
+    width:'80%',
+    backgroundColor:'#4267B2',
+    borderRadius:25,
+    height:50,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:10,
+    marginBottom:5
+  },
+  google: {
+    width:'80%',
+    backgroundColor:'#de5246',
+    borderRadius:25,
+    height:50,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:10,
+    marginBottom:5
+  },
+  apple: {
+    width:'80%',
+    backgroundColor:'#000000',
+    borderRadius:25,
+    height:50,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:10,
     marginBottom:10
   },
   loginText: {

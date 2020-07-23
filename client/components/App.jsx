@@ -3,7 +3,7 @@ import TabNavigator from './navigation/TabNavigator.jsx'
 import { mapping, light } from '@eva-design/eva'
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
-import Login from './screens/Login.jsx'
+import Login from './login/Login.jsx'
 
 export default class App extends React.Component {
 
