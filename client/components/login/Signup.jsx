@@ -17,7 +17,6 @@ export default class Signup extends React.Component {
       email: '',
       password: '',
       fontsLoaded: false,
-      signup: false
     }
   }
 
@@ -31,7 +30,7 @@ export default class Signup extends React.Component {
   }
 
   render() {
-    if (this.state.fontsLoaded && !this.state.signup) {
+    if (this.state.fontsLoaded) {
       return (
         <View style={styles.container}>
           <Text style={styles.logo}>Be You</Text>
@@ -55,8 +54,6 @@ export default class Signup extends React.Component {
           </TouchableOpacity>
         </View>
       )
-    } else if (this.state.signup) {
-      <Signup />
     } else {
       return <AppLoading />
     }

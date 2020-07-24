@@ -19,10 +19,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.lgbthub.beyou",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "facebookScheme": "fb3165489813558150",
+    "facebookAppId": "3165489813558150",
+    "facebookDisplayName": "Be You"
   }
 }

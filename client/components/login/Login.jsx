@@ -16,11 +16,10 @@ export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
       fontsLoaded: false,
       signup: false
     }
+    this.handleSignup = this.handleSignup.bind(this)
   }
 
   async _loadFontsAsync() {
@@ -32,6 +31,10 @@ export default class Login extends React.Component {
     this._loadFontsAsync()
   }
 
+  handleSignup() {
+    this.setState({ signup: true })
+  }
+
   render() {
     if (this.state.fontsLoaded && !this.state.signup) {
       return (
@@ -41,7 +44,7 @@ export default class Login extends React.Component {
               <View style={styles.container}>
                 <Text style={styles.logo}>Be You</Text>
                 <View style={styles.buttons}>
-                  <TouchableOpacity style={styles.facebook} onPress={() => this.props.handleLogin()}>
+                  <TouchableOpacity style={styles.facebook} onPress={() => this.props.handleLogin('facebook')}>
                     <View style={styles.socialLogos} >
                       <Icon name='facebook' color={'#fff'} size={30} />
                     </View>
@@ -49,7 +52,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Facebook</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleLogin()}>
+                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleLogin('google')}>
                     <View style={styles.socialLogos} >
                       <Icon name='google' color={'#fff'} size={30} />
                     </View>
@@ -57,7 +60,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Google</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.apple} onPress={() => this.props.handleLogin()}>
+                  <TouchableOpacity style={styles.apple} onPress={() => this.props.handleLogin('apple')}>
                     <View style={styles.socialLogos} >
                       <Icon name='apple' color={'#fff'} size={30} />
                     </View>
@@ -65,7 +68,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Apple</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.loginBtn} onPress={() => this.props.handleLogin()}>
+                  <TouchableOpacity style={styles.loginBtn} onPress={() => this.props.handleLogin('email')}>
                     <View style={styles.socialLogos} >
                       <Icon name='email' color={'#fff'} size={30} />
                     </View>
@@ -73,7 +76,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Email</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.signupBtn} onPress={() => this.props.handleLogin()}>
+                  <TouchableOpacity style={styles.signupBtn} onPress={() => this.handleSignup()}>
                       <Text style={styles.loginText}>Sign Up</Text>
                   </TouchableOpacity>
                 </View>
@@ -83,7 +86,7 @@ export default class Login extends React.Component {
         </React.Fragment >
       )
     } else if (this.state.signup) {
-      <Signup />
+      return <Signup />
     } else {
       return <AppLoading />
     }

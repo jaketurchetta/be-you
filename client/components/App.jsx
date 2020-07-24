@@ -12,10 +12,20 @@ export default class App extends React.Component {
     this.state = {
       loggedin: false
     }
-    this.handleLogin = this.handleLogin.bind(this)
+    this.handleSocialLogin = this.handleSocialLogin.bind(this)
   }
 
-  handleLogin() {
+  handleSocialLogin(method) {
+    if (method === 'facebook') {
+      this.setState({ loggedin: true })
+    } else if (method === 'google') {
+      this.setState({ loggedin: true })
+    } else {
+      this.setState({ loggedin: true })
+    }
+  }
+
+  handleEmailLogin() {
     this.setState({ loggedin: true })
   }
 

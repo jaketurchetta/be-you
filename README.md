@@ -15,7 +15,7 @@ The frontend design for the login page is below. Eventually, OAuth login functio
 
 ![alt text](/assets/screenshots/LoginPage.png)
 
-##### Newsfeed
+## Newsfeed
 
 Trending LGBTQIA+ news around the world provided via  GNews' Google News API! Keep up to date with current events around the world.
 
@@ -23,18 +23,18 @@ Trending LGBTQIA+ news around the world provided via  GNews' Google News API! Ke
 
 ![alt text](/assets/screenshots/BeYouLayout.png)
 
-##### Videos [in progress]
+## Videos [in progress]
 
 Trending LGBTQIA+ videos around the world provided via Youtube's API! Learn more about how to become a better ally or listen to inspiring coming out stories.
 
-##### Events [in progress]
+## Events [in progress]
 
 Find out about queer events in your area before they happen. Using the Eventbrite API, search events and acquire necessary tickets.
 
-##### Donations [in progress]
+## Donations [in progress]
 
 Donate to you favorite trending LGBTQIA+ organizations through Pledgeling's API.
 
-##### Resources [in progress]
+## Resources [in progress]
 
 Supportive resources for those in need including but not limited to sexual and mental health information.
