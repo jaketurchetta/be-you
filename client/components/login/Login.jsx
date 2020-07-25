@@ -2,9 +2,10 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, List } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
-import { AppLoading } from 'expo'
+import { AppLoading, Facebook } from 'expo'
 import * as Font from 'expo-font'
 import Signup from './Signup.jsx'
+import EmailLogin from './EmailLogin.jsx'
 import Icon from 'react-native-vector-icons/Fontisto'
 // import FBLogInButton from './Facebook.jsx'
 
@@ -17,15 +18,37 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       fontsLoaded: false,
+      emailLogin: false,
       signup: false
     }
     this.handleSignup = this.handleSignup.bind(this)
+    this.handleEmailLogin = this.handleEmailLogin.bind(this)
   }
 
   async _loadFontsAsync() {
     await Font.loadAsync(customFonts)
     this.setState({ fontsLoaded: true })
   }
+
+  async Facebooklogin() {
+    const { type, token } = await
+    Facebook.logInWithReadPermissionsAsync(
+      "342823069910303", {
+      permission: "public_profile"
+    }
+    )
+    if (type == "success") {
+      const credential =
+        firebase
+          .auth
+          .FacebookAuthProvider
+          .credential(token)
+    }
+
+    firebase.auth().signInWithCredential(credential).catch(error => {
+         console.log(error)
+     })
+
 
   componentDidMount() {
     this._loadFontsAsync()
@@ -35,8 +58,12 @@ export default class Login extends React.Component {
     this.setState({ signup: true })
   }
 
+  handleEmailLogin() {
+    this.setState({ emailLogin: true })
+  }
+
   render() {
-    if (this.state.fontsLoaded && !this.state.signup) {
+    if (this.state.fontsLoaded && !this.state.signup && !this.state.emailLogin) {
       return (
         <React.Fragment>
           <View style={styles.container}>
@@ -44,7 +71,7 @@ export default class Login extends React.Component {
               <View style={styles.container}>
                 <Text style={styles.logo}>Be You</Text>
                 <View style={styles.buttons}>
-                  <TouchableOpacity style={styles.facebook} onPress={() => this.props.handleLogin('facebook')}>
+                  <TouchableOpacity style={styles.facebook} onPress={() => this.props.handleSocialLogin('facebook')}>
                     <View style={styles.socialLogos} >
                       <Icon name='facebook' color={'#fff'} size={30} />
                     </View>
@@ -52,7 +79,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Facebook</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleLogin('google')}>
+                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleSocialLogin('google')}>
                     <View style={styles.socialLogos} >
                       <Icon name='google' color={'#fff'} size={30} />
                     </View>
@@ -60,7 +87,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Google</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.apple} onPress={() => this.props.handleLogin('apple')}>
+                  <TouchableOpacity style={styles.apple} onPress={() => this.props.handleSocialLogin('apple')}>
                     <View style={styles.socialLogos} >
                       <Icon name='apple' color={'#fff'} size={30} />
                     </View>
@@ -68,7 +95,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Apple</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.loginBtn} onPress={() => this.props.handleLogin('email')}>
+                  <TouchableOpacity style={styles.loginBtn} onPress={() => this.handleEmailLogin()}>
                     <View style={styles.socialLogos} >
                       <Icon name='email' color={'#fff'} size={30} />
                     </View>
@@ -87,6 +114,8 @@ export default class Login extends React.Component {
       )
     } else if (this.state.signup) {
       return <Signup />
+    } else if (this.state.emailLogin) {
+      return <EmailLogin />
     } else {
       return <AppLoading />
     }

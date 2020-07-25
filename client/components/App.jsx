@@ -25,10 +25,6 @@ export default class App extends React.Component {
     }
   }
 
-  handleEmailLogin() {
-    this.setState({ loggedin: true })
-  }
-
   render() {
     if (this.state.loggedin) {
       return (
@@ -44,7 +40,7 @@ export default class App extends React.Component {
         <Fragment>
           <IconRegistry icons={EvaIconsPack} />
           <ApplicationProvider mapping={mapping} theme={light} >
-            <Login handleLogin={this.handleLogin}/>
+            <Login handleSocialLogin={this.handleSocialLogin} handleEmailLogin={this.handleEmailLogin} />
           </ApplicationProvider>
         </Fragment>
       )

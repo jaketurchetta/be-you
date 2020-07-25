@@ -8,17 +8,13 @@ import * as Font from 'expo-font'
 const customFonts = { 'Billabong': require('../../../assets/fonts/Billabong.ttf') }
 const backgroundImage = require('../../../assets/RainbowHeart.jpg')
 
-export default class Signup extends React.Component {
+export default class EmailLogin extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      location: '',
       fontsLoaded: false,
     }
   }
@@ -42,20 +38,6 @@ export default class Signup extends React.Component {
               <View style={styles.inputView} >
                 <TextInput
                   style={styles.inputText}
-                  placeholder='First Name'
-                  placeholderTextColor='#003f5c'
-                  onChangeText={text => this.setState({ firstName: text })} />
-              </View>
-              <View style={styles.inputView} >
-                <TextInput
-                  style={styles.inputText}
-                  placeholder='Last Name'
-                  placeholderTextColor='#003f5c'
-                  onChangeText={text => this.setState({ lastName: text })} />
-              </View>
-              <View style={styles.inputView} >
-                <TextInput
-                  style={styles.inputText}
                   placeholder='Email'
                   placeholderTextColor='#003f5c'
                   onChangeText={text => this.setState({ email: text })} />
@@ -68,21 +50,9 @@ export default class Signup extends React.Component {
                   secureTextEntry={true}
                   onChangeText={text => this.setState({ password: text })} />
               </View>
-              <View style={styles.inputView} >
-                <TextInput
-                  style={styles.inputText}
-                  placeholder='Confirm Password'
-                  placeholderTextColor='#003f5c'
-                  secureTextEntry={true}
-                  onChangeText={text => this.setState({ confirmPassword: text })} />
-              </View>
-              <View style={styles.inputView} >
-                <TextInput
-                  style={styles.inputText}
-                  placeholder='Location'
-                  placeholderTextColor='#003f5c'
-                  onChangeText={text => this.setState({ location: text })} />
-              </View>
+              <TouchableOpacity>
+                <Text style={styles.forgot}>Forgot Password?</Text>
+              </TouchableOpacity>
             </View>
           </ImageBackground>
         </View>
@@ -134,6 +104,10 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50
+  },
+  forgot: {
+    color: '#000000',
+    fontSize: 11
   },
   loginBtn: {
     width: '80%',
