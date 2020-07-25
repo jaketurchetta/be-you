@@ -2,35 +2,30 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, List } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
-import { AppLoading, Facebook } from 'expo'
-import * as Font from 'expo-font'
+import { AppLoading } from 'expo'
+import * as Facebook from 'expo-facebook'
 import Signup from './Signup.jsx'
 import EmailLogin from './EmailLogin.jsx'
 import Icon from 'react-native-vector-icons/Fontisto'
 // import FBLogInButton from './Facebook.jsx'
 
-const customFonts = { 'Billabong': require('../../../assets/fonts/Billabong.ttf') }
 const backgroundImage = require('../../../assets/RainbowHeart.jpg')
+// Facebook.initializeAsync(appId: string | undefined, appName: string | undefined): Promise<void>
 
 export default class Login extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      fontsLoaded: false,
       emailLogin: false,
       signup: false
     }
     this.handleSignup = this.handleSignup.bind(this)
     this.handleEmailLogin = this.handleEmailLogin.bind(this)
+    this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
   }
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts)
-    this.setState({ fontsLoaded: true })
-  }
-
-  async Facebooklogin() {
+  async handleFacebookLogin() {
     const { type, token } = await
     Facebook.logInWithReadPermissionsAsync(
       "342823069910303", {
@@ -48,10 +43,11 @@ export default class Login extends React.Component {
     firebase.auth().signInWithCredential(credential).catch(error => {
          console.log(error)
      })
+  }
 
 
   componentDidMount() {
-    this._loadFontsAsync()
+
   }
 
   handleSignup() {
@@ -63,7 +59,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    if (this.state.fontsLoaded && !this.state.signup && !this.state.emailLogin) {
+    if (!this.state.signup && !this.state.emailLogin) {
       return (
         <React.Fragment>
           <View style={styles.container}>
@@ -71,7 +67,7 @@ export default class Login extends React.Component {
               <View style={styles.container}>
                 <Text style={styles.logo}>Be You</Text>
                 <View style={styles.buttons}>
-                  <TouchableOpacity style={styles.facebook} onPress={() => this.props.handleSocialLogin('facebook')}>
+                  <TouchableOpacity style={styles.facebook} onPress={() => this.handleFacebookLogin()}>
                     <View style={styles.socialLogos} >
                       <Icon name='facebook' color={'#fff'} size={30} />
                     </View>

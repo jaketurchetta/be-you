@@ -3,6 +3,8 @@ import TabNavigator from './navigation/TabNavigator.jsx'
 import { mapping, light } from '@eva-design/eva'
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
+import { AppLoading } from 'expo'
+import * as Font from 'expo-font'
 import Login from './login/Login.jsx'
 
 export default class App extends React.Component {
@@ -10,23 +12,22 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      fontsLoaded: false,
       loggedin: false
     }
-    this.handleSocialLogin = this.handleSocialLogin.bind(this)
   }
 
-  handleSocialLogin(method) {
-    if (method === 'facebook') {
-      this.setState({ loggedin: true })
-    } else if (method === 'google') {
-      this.setState({ loggedin: true })
-    } else {
-      this.setState({ loggedin: true })
-    }
+  componentDidMount() {
+    this._loadFontsAsync()
+  }
+
+  async _loadFontsAsync() {
+    await Font.loadAsync({ 'Billabong': require('../../assets/fonts/Billabong.ttf') })
+    this.setState({ fontsLoaded: true })
   }
 
   render() {
-    if (this.state.loggedin) {
+    if (this.state.loggedin && this.state.fontsLoaded) {
       return (
         <Fragment>
           <IconRegistry icons={EvaIconsPack} />
@@ -35,15 +36,17 @@ export default class App extends React.Component {
           </ApplicationProvider>
         </Fragment>
       )
-    } else {
+    } else if (!this.state.loggedin && this.state.fontsLoaded) {
       return (
         <Fragment>
           <IconRegistry icons={EvaIconsPack} />
           <ApplicationProvider mapping={mapping} theme={light} >
-            <Login handleSocialLogin={this.handleSocialLogin} handleEmailLogin={this.handleEmailLogin} />
+            <Login />
           </ApplicationProvider>
         </Fragment>
       )
+    } else {
+      return <AppLoading />
     }
 
   }

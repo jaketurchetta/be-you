@@ -3,9 +3,7 @@ import { StyleSheet, View, TextInput, Image, TouchableOpacity, ImageBackground }
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, List } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { AppLoading } from 'expo'
-import * as Font from 'expo-font'
 
-const customFonts = { 'Billabong': require('../../../assets/fonts/Billabong.ttf') }
 const backgroundImage = require('../../../assets/RainbowHeart.jpg')
 
 export default class Signup extends React.Component {
@@ -19,21 +17,14 @@ export default class Signup extends React.Component {
       password: '',
       confirmPassword: '',
       location: '',
-      fontsLoaded: false,
     }
   }
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts)
-    this.setState({ fontsLoaded: true })
-  }
-
   componentDidMount() {
-    this._loadFontsAsync()
+
   }
 
   render() {
-    if (this.state.fontsLoaded) {
       return (
         <View style={styles.container}>
           <ImageBackground source={backgroundImage} style={styles.image}>
@@ -87,9 +78,6 @@ export default class Signup extends React.Component {
           </ImageBackground>
         </View>
       )
-    } else {
-      return <AppLoading />
-    }
   }
 
 }
