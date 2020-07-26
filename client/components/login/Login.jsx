@@ -3,19 +3,12 @@ import { StyleSheet, View, TextInput, Image, TouchableOpacity, ImageBackground }
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, List } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { AppLoading } from 'expo'
-import * as Facebook from 'expo-facebook'
-import * as firebase from 'firebase'
 import Signup from './Signup.jsx'
 import EmailLogin from './EmailLogin.jsx'
 import Icon from 'react-native-vector-icons/Fontisto'
-import firebaseConfig from '../../../firebase'
+
 
 const backgroundImage = require('../../../assets/RainbowHeart.jpg')
-Facebook.initializeAsync(appId: '3165489813558150' | undefined, appName: string | undefined): Promise<void>
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig)
-}
 
 export default class Login extends React.Component {
 
@@ -27,36 +20,13 @@ export default class Login extends React.Component {
     }
     this.handleSignup = this.handleSignup.bind(this)
     this.handleEmailLogin = this.handleEmailLogin.bind(this)
-    this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user !== null) {
-          console.log(user)
-      }
-    })
+
   }
 
-  async handleFacebookLogin() {
-    const { type, token } = await
-    Facebook.logInWithReadPermissionsAsync(
-      "342823069910303", {
-      permission: [ "public_profile", "email" ]
-    }
-    )
-    if (type === "success") {
-      const credential =
-        firebase
-          .auth
-          .FacebookAuthProvider
-          .credential(token)
-    }
 
-    firebase.auth().signInWithCredential(credential).catch(error => {
-         console.log(error)
-     })
-  }
 
   handleSignup() {
     this.setState({ signup: true })
@@ -75,8 +45,7 @@ export default class Login extends React.Component {
               <View style={styles.container}>
                 <Text style={styles.logo}>Be You</Text>
                 <View style={styles.buttons}>
-                  <TouchableOpacity style={styles.facebook} onPress={() => { this.handleFacebookLogin()
-                                                                              console.log('FB Login') } }>
+                  <TouchableOpacity style={styles.facebook} onPress={() => this.props.handleFacebookLogin()}>
                     <View style={styles.socialLogos} >
                       <Icon name='facebook' color={'#fff'} size={30} />
                     </View>
