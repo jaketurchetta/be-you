@@ -10,8 +10,6 @@ import firebaseConfig from '../../firebase'
 import * as Facebook from 'expo-facebook'
 import * as firebase from 'firebase'
 
-Facebook.initializeAsync({appId: '3165489813558150' | undefined, appName: 'Be You' | undefined})
-
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
@@ -43,23 +41,22 @@ export default class App extends React.Component {
   }
 
   async handleFacebookLogin() {
-    const { type, token } = await
-    Facebook.logInWithReadPermissionsAsync(
-      "342823069910303", {
+    await Facebook.initializeAsync({appId: '3165489813558150', appName: 'Be You' })
+    const { type, token, expires, permissions, declinedPermissions} = await Facebook.logInWithReadPermissionsAsync("342823069910303", {
       permission: [ "public_profile", "email" ]
-    }
-    )
+    })
+
     if (type === "success") {
       console.log("Successful FB login!")
-      const credential =
-        firebase.auth().FacebookAuthProvider
-          .credential(token)
+      const credential = firebase.auth.FacebookAuthProvider.credential(token)
+      console.log('Credential:', credential)
+      firebase.auth().signInWithCredential(credential)
+        .then(this.setState({ loggedin: true }))
+        .catch(error => {
+          console.log(error)
+        })
     }
-    firebase.auth().signInWithCredential(credential)
-      .then(this.setState({ loggedin: true}))
-      .catch(error => {
-         console.log(error)
-     })
+
   }
 
   render() {
