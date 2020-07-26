@@ -4,13 +4,18 @@ import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, Li
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { AppLoading } from 'expo'
 import * as Facebook from 'expo-facebook'
+import * as firebase from 'firebase'
 import Signup from './Signup.jsx'
 import EmailLogin from './EmailLogin.jsx'
 import Icon from 'react-native-vector-icons/Fontisto'
-// import FBLogInButton from './Facebook.jsx'
+import firebaseConfig from '../../../firebase'
 
 const backgroundImage = require('../../../assets/RainbowHeart.jpg')
-// Facebook.initializeAsync(appId: string | undefined, appName: string | undefined): Promise<void>
+Facebook.initializeAsync(appId: '3165489813558150' | undefined, appName: string | undefined): Promise<void>
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+}
 
 export default class Login extends React.Component {
 
@@ -25,14 +30,22 @@ export default class Login extends React.Component {
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
   }
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user !== null) {
+          console.log(user)
+      }
+    })
+  }
+
   async handleFacebookLogin() {
     const { type, token } = await
     Facebook.logInWithReadPermissionsAsync(
       "342823069910303", {
-      permission: "public_profile"
+      permission: [ "public_profile", "email" ]
     }
     )
-    if (type == "success") {
+    if (type === "success") {
       const credential =
         firebase
           .auth
@@ -43,11 +56,6 @@ export default class Login extends React.Component {
     firebase.auth().signInWithCredential(credential).catch(error => {
          console.log(error)
      })
-  }
-
-
-  componentDidMount() {
-
   }
 
   handleSignup() {
@@ -67,7 +75,8 @@ export default class Login extends React.Component {
               <View style={styles.container}>
                 <Text style={styles.logo}>Be You</Text>
                 <View style={styles.buttons}>
-                  <TouchableOpacity style={styles.facebook} onPress={() => this.handleFacebookLogin()}>
+                  <TouchableOpacity style={styles.facebook} onPress={() => { this.handleFacebookLogin()
+                                                                              console.log('FB Login') } }>
                     <View style={styles.socialLogos} >
                       <Icon name='facebook' color={'#fff'} size={30} />
                     </View>
@@ -75,7 +84,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Facebook</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleSocialLogin('google')}>
+                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleSocialLogin()}>
                     <View style={styles.socialLogos} >
                       <Icon name='google' color={'#fff'} size={30} />
                     </View>

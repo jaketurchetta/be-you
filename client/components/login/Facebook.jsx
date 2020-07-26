@@ -1,11 +1,11 @@
 
 
-// Facebook.initializeAsync(appId: string | undefined, appName: string | undefined): Promise<void>
+
 
 // export default class FacebookLogIn extends React.Component {
 
 //   constructor(props) {
-//     super(props)
+//     super(props)w
 //     this.state = {}
 //   }
 

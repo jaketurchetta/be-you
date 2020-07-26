@@ -28,6 +28,7 @@
     "expo-facebook": "^8.2.1",
     "expo-status-bar": "^1.0.0",
     "express": "^4.17.1",
+    "firebase": "^7.17.1",
     "install": "^0.13.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
