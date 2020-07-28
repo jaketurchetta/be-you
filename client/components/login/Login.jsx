@@ -53,7 +53,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Facebook</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleSocialLogin()}>
+                  <TouchableOpacity style={styles.google} onPress={() => this.props.handleGoogleLogin()}>
                     <View style={styles.socialLogos} >
                       <Icon name='google' color={'#fff'} size={30} />
                     </View>
@@ -61,7 +61,7 @@ export default class Login extends React.Component {
                       <Text style={styles.loginText}>Log in with Google</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.apple} onPress={() => this.props.handleSocialLogin('apple')}>
+                  <TouchableOpacity style={styles.apple} onPress={() => this.props.handleAppleLogin()}>
                     <View style={styles.socialLogos} >
                       <Icon name='apple' color={'#fff'} size={30} />
                     </View>

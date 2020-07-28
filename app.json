@@ -18,8 +18,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lgbthub.beyou",
-      "buildNumber": "1.0.0",
+      "bundleIdentifier": "dev.expo.client.j4dsa7yxac7gihdjkgijuokuam5ow5jnjlvblrpdikybc",
+      "buildNumber": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
