@@ -25,8 +25,14 @@ export default class HeaderNav extends React.Component {
             statusBarProps={{ barStyle: 'light-content' }}
             barStyle="light-content"
             centerComponent={{ text: 'Be You', style: { fontSize: 40, paddingBottom: 50, fontFamily: 'Billabong' } }}
-            rightComponent={() => (<TouchableOpacity style={styles.pictureBtn} onPress={() => console.log('Settings!', this.props.photoURL)}>
-                                    <Image source={{uri: this.props.photoURL}} style={styles.profilePicture} />
+            rightComponent={() => (<TouchableOpacity style={styles.pictureBtn}
+                                                    onPress={() => console.log('Settings!', this.props.photoURL)}>
+                                    {this.props.photoURL.length ? (<Image source={{uri: this.props.photoURL}}
+                                                                          style={styles.profilePicture} />)
+                                                                : (<Icon name='person-outline'
+                                                                          height={32}
+                                                                          width={32}
+                                                                          fill={'#111'} />)}
                                   </TouchableOpacity>)}
             containerStyle={{
               backgroundColor: 'white',

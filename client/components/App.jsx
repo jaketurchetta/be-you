@@ -10,9 +10,10 @@ import * as Font from 'expo-font'
 import Login from './login/Login.jsx'
 import axios from 'axios'
 import firebaseConfig from '../../firebase'
-import * as Facebook from 'expo-facebook'
 import * as firebase from 'firebase'
+import * as Facebook from 'expo-facebook'
 import * as Google from 'expo-google-app-auth'
+import * as Apple from 'expo-apple-authentication'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
@@ -31,6 +32,7 @@ export default class App extends React.Component {
     }
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this)
+    this.handleAppleLogin = this.handleAppleLogin.bind(this)
   }
 
   componentDidMount() {
@@ -76,66 +78,96 @@ export default class App extends React.Component {
           .catch(e => console.log(e))
       } else {
       console.log('FB Authentication Type = Cancel')
+      }
+    } catch({ message }) {
+      alert(`Facebook Login Error: ${message}`);
     }
-  } catch({ message }) {
-    alert(`Facebook Login Error: ${message}`);
   }
-}
 
-async handleGoogleLogin() {
-  try {
-    const result = await Google.logInAsync({
-      iosClientId: '1072710856472-r6adei6bpilb177gr4dbhki9b5tscmlo.apps.googleusercontent.com',
-      scopes: ['profile', 'email']
-    })
-    if (result.type === 'success') {
-      this.setState({
-        loggedin: true,
-        name: result.user.name,
-        firstName: result.user.givenName,
-        photoURL: result.user.photoUrl
-      }, () => {
-        Alert.alert(
-          'Welcome to Be You!',
-          `Welcome back, ${result.user.givenName}!`,
-          [
-            { text: 'OK', onPress: () => console.log('OK Pressed') }
-          ],
-          { cancelable: false }
-        )
+  async handleGoogleLogin() {
+    try {
+      const result = await Google.logInAsync({
+        iosClientId: '1072710856472-r6adei6bpilb177gr4dbhki9b5tscmlo.apps.googleusercontent.com',
+        scopes: ['profile', 'email']
       })
-    } else {
-      console.log('Google Authentication Type = Cancel')
+      if (result.type === 'success') {
+        this.setState({
+          loggedin: true,
+          name: result.user.name,
+          firstName: result.user.givenName,
+          photoURL: result.user.photoUrl
+        }, () => {
+          Alert.alert(
+            'Welcome to Be You!',
+            `Welcome back, ${result.user.givenName}!`,
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') }
+            ],
+            { cancelable: false }
+          )
+        })
+      } else {
+        console.log('Google Authentication Type = Cancel')
+      }
+    } catch (error) {
+      console.log('Error:', error)
     }
-  } catch (error) {
-    console.log('Error:', error)
-  }
-}
-
-render() {
-  if (this.state.loggedin && this.state.fontsLoaded) {
-    return (
-      <Fragment>
-        <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider mapping={mapping} theme={light} >
-          <HeaderNavigator photoURL={this.state.photoURL} />
-          <TabNavigator />
-        </ApplicationProvider>
-      </Fragment>
-    )
-  } else if (!this.state.loggedin && this.state.fontsLoaded) {
-    return (
-      <Fragment>
-        <IconRegistry icons={EvaIconsPack} />
-        <ApplicationProvider mapping={mapping} theme={light} >
-          <Login handleFacebookLogin={this.handleFacebookLogin} handleGoogleLogin={this.handleGoogleLogin} />
-        </ApplicationProvider>
-      </Fragment>
-    )
-  } else {
-    return <AppLoading />
   }
 
-}
+  async handleAppleLogin() {
+    try {
+      const result = await Apple.signInAsync({
+          requestedScopes: [
+            Apple.AppleAuthenticationScope.FULL_NAME,
+            Apple.AppleAuthenticationScope.EMAIL,
+          ]
+        })
+          this.setState({
+            loggedin: true,
+            name: result.fullName,
+            firstName: result.fullName.givenName
+          }, () => {
+            Alert.alert(
+              'Welcome to Be You!',
+              `Welcome back, ${result.fullName.givenName}!`,
+              [
+                { text: 'OK', onPress: () => console.log('OK Pressed') }
+              ],
+              { cancelable: false }
+            )
+          })
+    } catch (error) {
+      console.log('Error:', error)
+    }
+  }
+
+
+  render() {
+    if (this.state.loggedin && this.state.fontsLoaded) {
+      return (
+        <Fragment>
+          <IconRegistry icons={EvaIconsPack} />
+          <ApplicationProvider mapping={mapping} theme={light} >
+            <HeaderNavigator photoURL={this.state.photoURL} />
+            <TabNavigator />
+          </ApplicationProvider>
+        </Fragment>
+      )
+    } else if (!this.state.loggedin && this.state.fontsLoaded) {
+      return (
+        <Fragment>
+          <IconRegistry icons={EvaIconsPack} />
+          <ApplicationProvider mapping={mapping} theme={light} >
+            <Login handleFacebookLogin={this.handleFacebookLogin}
+                    handleGoogleLogin={this.handleGoogleLogin}
+                    handleAppleLogin={this.handleAppleLogin} />
+          </ApplicationProvider>
+        </Fragment>
+      )
+    } else {
+      return <AppLoading />
+    }
+
+  }
 
 }
