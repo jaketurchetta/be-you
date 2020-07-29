@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react'
 import TabNavigator from './navigation/TabNavigator.jsx'
+import HeaderNavigator from './navigation/HeaderNavigator.jsx'
 import { mapping, light } from '@eva-design/eva'
-import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, Alert } from 'react-native-ui-kitten'
+import { Alert } from 'react-native'
+import { ApplicationProvider, IconRegistry, Layout, Text, Avatar } from 'react-native-ui-kitten'
 import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import { AppLoading } from 'expo'
 import * as Font from 'expo-font'
@@ -24,6 +26,7 @@ export default class App extends React.Component {
       fontsLoaded: false,
       loggedin: false,
       name: '',
+      firstName: '',
       photoURL: '',
     }
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this)
@@ -69,20 +72,25 @@ export default class App extends React.Component {
   async handleGoogleLogin() {
     try {
       const result = await Google.logInAsync({
-        iosClientId: '1072710856472-dbejnuu8lfv7k5ge48m75oh0q8m6hdph.apps.googleusercontent.com',
+        iosClientId: '1072710856472-r6adei6bpilb177gr4dbhki9b5tscmlo.apps.googleusercontent.com',
         scopes: ['profile', 'email']
       })
-      console.log(result)
       if (result.type === 'success') {
-        let userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-          headers: { Authorization: `Bearer ${result.accessToken}` },
+        this.setState({
+          loggedin: true,
+          name: result.user.name,
+          firstName: result.user.givenName,
+          photoURL: result.user.photoUrl
+        }, () => {
+          Alert.alert(
+            'Welcome to Be You!',
+            `Welcome back, ${result.user.givenName}!`,
+            [
+              { text: 'OK', onPress: () => console.log('OK Pressed') }
+            ],
+            { cancelable: false }
+          );
         })
-        console.log(userInfoResponse)
-        // this.setState({
-        //   loggedin: true,
-        //   name: result.user.name,
-        //   photoURL: result.user.photoUrl
-        // })
       } else {
         console.log('Google Authentication Type = Cancel')
       }
@@ -97,6 +105,7 @@ export default class App extends React.Component {
         <Fragment>
           <IconRegistry icons={EvaIconsPack} />
           <ApplicationProvider mapping={mapping} theme={light} >
+            <HeaderNavigator photoURL={this.state.photoURL} />
             <TabNavigator />
           </ApplicationProvider>
         </Fragment>

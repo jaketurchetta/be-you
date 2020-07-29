@@ -3,7 +3,6 @@ import { StyleSheet, View, Image, TouchableOpacity, Linking, Alert } from 'react
 import { ApplicationProvider, IconRegistry, Layout, Text, Avatar, withStyles, List } from 'react-native-ui-kitten'
 import axios from 'axios'
 import { GNEWS_API_KEY, UNSPLASH_ACCESS_KEY, UNSPLASH_SECRET_KEY } from '../../../config.js'
-import FeedNavigator from '../navigation/TopNavigator.jsx'
 import Unsplash, { toJson } from 'unsplash-js'
 import { Promise } from 'bluebird'
 import Icon from 'react-native-vector-icons/Entypo'
@@ -209,7 +208,6 @@ class _News extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <FeedNavigator />
         {this.state.articles.length ? (<List style={this.props.themedStyle.container}
           contentContainerStyle={this.props.themedStyle.contentContainer}
           data={this.state.articles}
