@@ -122,20 +122,20 @@ export default class App extends React.Component {
             Apple.AppleAuthenticationScope.EMAIL,
           ]
         })
-          this.setState({
-            loggedin: true,
-            name: result.fullName,
-            firstName: result.fullName.givenName
-          }, () => {
-            Alert.alert(
-              'Welcome to Be You!',
-              `Welcome back, ${result.fullName.givenName}!`,
-              [
-                { text: 'OK', onPress: () => console.log('OK Pressed') }
-              ],
-              { cancelable: false }
-            )
-          })
+      this.setState({
+        loggedin: true,
+        name: result.fullName,
+        firstName: result.fullName.givenName
+      }, () => {
+        Alert.alert(
+          'Welcome to Be You!',
+          `Welcome back, ${result.fullName.givenName}!`,
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') }
+          ],
+          { cancelable: false }
+        )
+      })
     } catch (error) {
       console.log('Error:', error)
     }

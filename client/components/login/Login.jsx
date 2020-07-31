@@ -22,12 +22,6 @@ export default class Login extends React.Component {
     this.handleEmailLogin = this.handleEmailLogin.bind(this)
   }
 
-  componentDidMount() {
-
-  }
-
-
-
   handleSignup() {
     this.setState({ signup: true })
   }
@@ -50,7 +44,7 @@ export default class Login extends React.Component {
                       <Icon name='facebook' color={'#fff'} size={30} />
                     </View>
                     <View style={styles.centerText}>
-                      <Text style={styles.loginText}>Log in with Facebook</Text>
+                      <Text style={styles.loginText}>Continue with Facebook</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.google} onPress={() => this.props.handleGoogleLogin()}>
@@ -58,7 +52,7 @@ export default class Login extends React.Component {
                       <Icon name='google' color={'#fff'} size={30} />
                     </View>
                     <View style={styles.centerText}>
-                      <Text style={styles.loginText}>Log in with Google</Text>
+                      <Text style={styles.loginText}>Continue with Google</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.apple} onPress={() => this.props.handleAppleLogin()}>
@@ -66,7 +60,7 @@ export default class Login extends React.Component {
                       <Icon name='apple' color={'#fff'} size={30} />
                     </View>
                     <View style={styles.centerText}>
-                      <Text style={styles.loginText}>Log in with Apple</Text>
+                      <Text style={styles.loginText}>Continue with Apple</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.loginBtn} onPress={() => this.handleEmailLogin()}>
@@ -74,7 +68,7 @@ export default class Login extends React.Component {
                       <Icon name='email' color={'#fff'} size={30} />
                     </View>
                     <View style={styles.centerText}>
-                      <Text style={styles.loginText}>Log in with Email</Text>
+                      <Text style={styles.loginText}>Continue with Email</Text>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.signupBtn} onPress={() => this.handleSignup()}>
