@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import TabNavigator from './navigation/TabNavigator.jsx'
 import HeaderNavigator from './navigation/HeaderNavigator.jsx'
 import { mapping, light } from '@eva-design/eva'
@@ -34,6 +34,10 @@ export default class App extends React.Component {
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this)
     this.handleAppleLogin = this.handleAppleLogin.bind(this)
   }
+
+  // const [isLoggedin, setLoggedinStatus] = useState(false);
+  // const [userData, setUserData] = useState(null);
+  // const [isImageLoading, setImageLoadStatus] = useState(false);
 
   componentDidMount() {
     this._loadFontsAsync()
